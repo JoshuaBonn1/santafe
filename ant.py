@@ -54,6 +54,8 @@ class Ant:
     def crossover(self, other):
         #Get two random nodes, swap all important values
         if self.count() == 1 or other.count() == 1:
+            self.program.prune(10)
+            other.program.prune(10)
             return
         subtree1 = self.program.getRandomNode()
         subtree2 = other.program.getRandomNode()

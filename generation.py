@@ -25,7 +25,10 @@ class Generation:
     def run(self, worlds, generations):
         #Run for n generations
         for gen in xrange(generations):
-            world = random.choice(worlds)
+            if isinstance(worlds, list):
+              world = random.choice((worlds))
+            else:
+              world = worlds
             world_max = world.foodCount()
             #Simulated all ants
             for ant in self.ants:
@@ -67,6 +70,11 @@ class Generation:
                 else:
                     break
             
+            total = 0
+            for a in new_ants:
+              total += a.count()
+            print total / float(len(new_ants))
+            
             self.ants = new_ants
     
     def printFitnesses(self):
@@ -85,6 +93,8 @@ class Generation:
         child1 = deepcopy(self.selection())
         child2 = deepcopy(self.selection())
         child1.crossover(child2)
+        child1.program.prune(10)
+        child2.program.prune(10)
         return child1, child2
     
     def showGraph(self):

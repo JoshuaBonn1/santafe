@@ -20,7 +20,6 @@ class Node:
         self.left._generateTree(depth - 1, self)
         self.right = Node()
         self.right._generateTree(depth - 1, self)
-        print self.count()
     
     def _generateTree(self, depth, p):
         self.parent = p
